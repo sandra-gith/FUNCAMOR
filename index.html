@@ -143,7 +143,9 @@
 
             </div>
         </section>
-           <!-- portafolio o galeria  -->
+
+    <!-- portafolio o galeria  -->
+     
  <section class="portafolio">
     <div class="contenedor-portafolio">
             <H2 id="portafolio" class="titulo">Nuestra Galería</H2>
@@ -177,22 +179,23 @@
         'img/foto20.jpg',
     ];  
     
-    let indice = 0;
-    const cantidad = 3; // Número de imágenes visibles
+   let indice = 0;
+let cantidad = window.innerWidth <= 600 ? 1 : 3; // Cambia según el ancho de pantalla
 
-    function mostrarImagenes() {
-      const contenedor = document.getElementById('imagenes-carrusel');
-      contenedor.innerHTML = '';
-      for (let i = 0; i < cantidad; i++) {
-        const img = document.createElement('img');
-        img.src = imagenes[(indice + i) % imagenes.length];
-        img.alt = 'Imagen carrusel';
-        contenedor.appendChild(img);
-        // Forzar reflujo para reiniciar la animación
-        void img.offsetWidth;
-        img.classList.add('visible');
-      }
-    }
+function mostrarImagenes() {
+  // Actualiza cantidad por si el usuario cambió el tamaño de la ventana
+  cantidad = window.innerWidth <= 600 ? 1 : 3;
+  const contenedor = document.getElementById('imagenes-carrusel');
+  contenedor.innerHTML = '';
+  for (let i = 0; i < cantidad; i++) {
+    const img = document.createElement('img');
+    img.src = imagenes[(indice + i) % imagenes.length];
+    img.alt = 'Imagen carrusel';
+    contenedor.appendChild(img);
+    void img.offsetWidth;
+    img.classList.add('visible');
+  }
+}
 
     function anterior() {
       indice = (indice - 1 + imagenes.length) % imagenes.length;
@@ -217,7 +220,8 @@
         siguiente();
       }, 4000);
     }
-
+// Detectar cambio de tamaño de pantalla y actualizar el carrusel
+window.addEventListener('resize', mostrarImagenes);
     // Inicializar
     mostrarImagenes();
   </script>

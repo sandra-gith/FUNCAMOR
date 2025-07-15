@@ -8,4 +8,5 @@ navItems.forEach(item => {
   item.addEventListener("click", () => {
     document.querySelector("nav").classList.toggle("show");
   });
+  
 });
